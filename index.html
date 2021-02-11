@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Generator</title>
+
+    <link rel="stylesheet" href="styles/gallery.css">
+    <link rel="stylesheet" href="styles/meme-gr.css">
+</head>
+
+<body onload="init()">
+
+    <!--HEADER-->
+    <header class="header">
+        <img src="images/logo/LOGO.png" alt="logo" class="logo-img">
+        <a href="#" class="galery-link" onclick="goToGallery()">Gallery</a>
+        <a href="#" class="memes-link" onclick="initCanvas()">Memes</a>
+        <a href="#" class="about-link" onclick="showAbout()">About</a>
+    </header>
+
+
+    <!--MEME EDITOR SECTION-->
+    <section class="meme-editor-section">
+        <div class="canvas-container">
+            <canvas id="my-canvas" height="500" width="500" onclick="draw(event)"></canvas>
+            <menu class="meme-editor-menu">
+                <input type="text" id="text-line" placeholder="Enter first line here" onkeyup="insertTextLine(0)" onclick="updateSelectedLineIdx(0)">
+                <input type="text" id="second-text-line" placeholder="Enter second line here" onkeyup="insertTextLine(1)" onclick="updateSelectedLineIdx(1)">
+                <form>
+                    <label for="text-color">Text Color</label>
+                    <input type="color" value="#7a9882" id="text-color" oninput="onChangeTextColor(value)">
+                </form>
+                <form>
+                    <label for="fill-color">Fill Color</label>
+                    <input type="color" value="#cfcabd" id="fill-color" oninput="onChangeFillColor(value)">
+                </form>
+
+                <button class="font-size-up" onclick="changeFontSize('up')"><img src="images/ICONS/increase font - icon.png" alt=""></button>
+                <button class="font-size-down" onclick="changeFontSize('down')"><img src="images/ICONS/decrease font - icon.png" alt=""></button>
+                <button onclick="clearCanvas()">Clear Canvas</button>
+                <a href="#" onclick="downloadCanvas(this)" download="">Download</a>
+            </menu>
+        </div>
+    </section>
+
+
+    <!--GALLERY SECTIONn-->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery"></div>
+        </div>
+    </section>
+
+
+    <!-- <footer class="footer">coffee rights</footer> -->
+
+
+    <!--SCRIPTS-->
+    <!-- <script src="js/meme-service.js"></script> -->
+    <script src="js/meme-controler.js"></script>
+
+</body>
+
+</html>
