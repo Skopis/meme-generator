@@ -13,12 +13,20 @@ var gMeme =
             pos: { x: (gElCanvas.width / 2), y: 40 },
             isDragging: false,
             size: 40,
+            texclr: '#7a9882',
+            fillclr: '#cfcabd',
+            fontfam: 'impact',
+            txtAlign: 'center'
         },
         {
             txt: '',
             pos: { x: (gElCanvas.width / 2), y:  (gElCanvas.height - 40) },
             isDragging: false,
             size: 40,
+            texclr: '#7a9882',
+            fillclr: '#cfcabd',
+            fontfam: 'impact',
+            txtAlign: 'center'
         }
     ]
 }
@@ -130,20 +138,14 @@ function renderCanvas() {
     clearCanvas();
     gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height);
     drawImg();
-    console.log('gMeme.lines', gMeme.lines)
     for (var i = 0; i < gMeme.lines.length; i++) {
-        drawText(gMeme.lines[i].txt, gMeme.lines[i].pos.x, gMeme.lines[i].pos.y);
-        console.log(`gMeme.lines[${i}].txt`, gMeme.lines[i].txt);
+        console.log('i', i);
+        drawText(gMeme.lines[i].txt, gMeme.lines[i].pos.x, gMeme.lines[i].pos.y, i);
     }
 }
 
 function initCanvas(imgId) {
     gCtx = gElCanvas.getContext('2d');
-
-    var initTextColor = document.getElementById("text-color").value;
-    gCtx.strokeStyle = initTextColor;
-    var initFillColor = document.getElementById("fill-color").value;
-    gCtx.fillStyle = initFillColor;
 
     addListeners();
 
@@ -188,19 +190,27 @@ function downloadCanvas(elLink) {
 
 function onChangeFillColor(color) {
     gCtx.fillStyle = color;
+    gMeme.lines[gMeme.selectedLineIdx].fillclr = color;
     drawText(gMeme.lines[gMeme.selectedLineIdx].txt, gMeme.lines[gMeme.selectedLineIdx].pos.x, gMeme.lines[gMeme.selectedLineIdx].pos.y);
 
 }
 function onChangeTextColor(color) {
     gCtx.strokeStyle = color;
+    gMeme.lines[gMeme.selectedLineIdx].txtclr = color;
     drawText(gMeme.lines[gMeme.selectedLineIdx].txt, gMeme.lines[gMeme.selectedLineIdx].pos.x, gMeme.lines[gMeme.selectedLineIdx].pos.y);
 }
 
-function drawText(text, x, y) {
+function drawText(text, x, y, idx = -1) {
+    if(idx === -1) var lineIdx = gMeme.selectedLineIdx;
+    else lineIdx = idx;
+    console.log('lineIdx is:', lineIdx)
     gCtx.lineWidth = 1;
-    gCtx.font = `${gMeme.lines[gMeme.selectedLineIdx].size}px impact`;
-    gCtx.textAlign = 'center';
+    gCtx.font = `${gMeme.lines[lineIdx].size}px ${gMeme.lines[lineIdx].fontfam}`;
+    gCtx.textAlign = gMeme.lines[lineIdx].txtAlign;
+
+    gCtx.fillStyle = gMeme.lines[lineIdx].fillclr;
     gCtx.fillText(text, x, y);
+    gCtx.strokeStyle = gMeme.lines[lineIdx].txtclr;
     gCtx.strokeText(text, x, y);
 }
 
@@ -220,7 +230,6 @@ function changeFontSize(upOrDown) {
 
 function updateSelectedLineIdx(lineIdx){
     gMeme.selectedLineIdx = lineIdx;
-    console.log('lineIdx on click', lineIdx);
 }
 
 
