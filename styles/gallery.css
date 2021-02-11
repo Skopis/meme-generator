@@ -1,21 +1,6 @@
 /* --------------- FONTS --------------- */
 
 @font-face {
-    font-family: euro;
-    src: url(../fonts/eurofurence/eurof55.ttf);
-}
-
-@font-face {
-    font-family: lato-reglar;
-    src: url(../fonts/Lato/Lato-Regular.ttf);
-}
-
-@font-face {
-    font-family: lato-bold;
-    src: url(../fonts/Lato/Lato-Bold.ttf);
-}
-
-@font-face {
     font-family: impact;
     src: url(../fonts/impact/impact.ttf);
 }
@@ -32,7 +17,7 @@
 }
 
 html, body {
-    font-family: lato-bold;
+    font-family: impact;
     color: #4F4E4E;
     background-color: rgb(226, 176, 170);
 }

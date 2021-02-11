@@ -23,6 +23,7 @@ var gMeme =
     ]
 }
 
+
 var gStartPos;
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 var gKeywords = { 'happy': 5, 'funny': 12, 'dog': 3 };
