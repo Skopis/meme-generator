@@ -5,7 +5,7 @@ var gCtx;
 var gImgs = [];
 var gMeme =
 {
-    selectedImgId: 5,
+    selectedImgId: 0,
     selectedLineIdx: 0,
     lines: [
         {
@@ -73,13 +73,10 @@ function addTouchListeners() {
     gElCanvas.addEventListener('touchend', onUp);
 }
 
-function insertTextLine(lineNum) {
+function insertTextLine() {
     var text;
-    if (lineNum === 0) text = document.getElementById('text-line').value;
-    else text = document.getElementById('second-text-line').value;
-
+    text = document.getElementById('text-line').value;
     drawText(text, gMeme.lines[gMeme.selectedLineIdx].pos.x, gMeme.lines[gMeme.selectedLineIdx].pos.y);
-    gMeme.selectedLineIdx = lineNum;
     gMeme.lines[gMeme.selectedLineIdx].txt = text;
     renderCanvas();
 }
@@ -112,7 +109,7 @@ function onMove(ev) {
 
 function onUp(ev) {
     gMeme.lines[gMeme.selectedLineIdx].isDragging = false;
-    document.body.style.cursor = 'grab';
+    document.body.style.cursor = 'default';
 
     const pos = getEvPos(ev)
     gMeme.lines[gMeme.selectedLineIdx].pos.x = pos.x;
@@ -166,7 +163,6 @@ function initCanvas(imgId) {
         }
 
         document.getElementById('text-line').value = '';
-        document.getElementById('second-text-line').value = '';
         gMeme.lines.forEach((line) => {
             line.txt = '';
         });
@@ -188,23 +184,51 @@ function drawImg() {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
-function deleteLine() {
-    gMeme.lines.splice(gMeme.selectedLineIdx, 1, {
-        txt: '',
-        pos: { x: null, y: null },
-        isDragging: false,
-        size: 40,
-        texclr: '#000000',
-        fillclr: '#FFFFFF',
-        fontfam: 'impact',
-        txtAlign: 'center'
-    });
-    if (gMeme.selectedLineIdx === 0) gMeme.lines.pos = { x: (gElCanvas.width / 2), y: 40 };
-    else if (gMeme.selectedLineIdx === 1) gMeme.lines.pos = { x: (gElCanvas.width / 2), y: (gElCanvas.height - 40) };
-    else gMeme.lines.pos = { x: (gElCanvas.width / 2), y: gElCanvas.height / 2 };
-    renderCanvas();
+function changeSelectedLineIdx(upOrDown) {
+    if (upOrDown === 'up') gMeme.selectedLineIdx++;
+    else gMeme.selectedLineIdx--;
 }
 
+function deleteLine() {
+    document.getElementById('text-line').value = '';
+    if (gMeme.selectedLineIdx === 0) {
+        gMeme.lines.splice(0, 1, {
+            txt: '',
+            pos: { x: (gElCanvas.width / 2), y: 40 },
+            isDragging: false,
+            size: 40,
+            texclr: '#000000',
+            fillclr: '#FFFFFF',
+            fontfam: 'impact',
+            txtAlign: 'center'
+        });
+    }
+    else {
+        gMeme.lines.splice(gMeme.selectedLineIdx, 1);
+        gMeme.selectedLineIdx--;
+    }
+
+    renderCanvas();
+}
+function addNewLine() {
+    document.getElementById('text-line').value = '';
+    if (gMeme.lines.length >= 1) {//if it's the second line that is added
+        gMeme.lines.push({
+            txt: '',
+            pos: { x: (gElCanvas.width / 2), y: (gElCanvas.height - 40) },
+            isDragging: false,
+            size: 40,
+            texclr: '#000000',
+            fillclr: '#FFFFFF',
+            fontfam: 'impact',
+            txtAlign: 'center'
+        });
+        if (gMeme.lines.length >= 2) {//if it's the third line and above that's added
+            gMeme.lines[gMeme.lines.length - 1].pos = { x: (gElCanvas.width / 2), y: gElCanvas.height / 2 };
+        }
+    }
+    gMeme.selectedLineIdx++;
+}
 function downloadCanvas(elLink) {
     const data = gElCanvas.toDataURL();
     elLink.href = data;
@@ -233,7 +257,6 @@ function onChangeTextColor(color) {
 }
 
 function drawText(text, x, y, idx = -1) {
-    console.log('gMeme.lines[gMeme.selectedLineIdx].fontfam', gMeme.lines[gMeme.selectedLineIdx].fontfam);
     if (idx === -1) var lineIdx = gMeme.selectedLineIdx;
     else lineIdx = idx;
     gCtx.lineWidth = 2;

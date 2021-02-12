@@ -29,8 +29,7 @@
         <div class="canvas-container">
             <canvas id="my-canvas" height="500" width="500" onclick="draw(event)"></canvas>
             <menu class="meme-editor-menu">
-                <input type="text" id="text-line" placeholder="Enter first line here" onkeyup="insertTextLine(0)" onclick="updateSelectedLineIdx(0)"></br>
-                <input type="text" id="second-text-line" placeholder="Enter second line here" onkeyup="insertTextLine(1)" onclick="updateSelectedLineIdx(1)">
+                <input type="text" id="text-line" placeholder="Enter line here" onkeyup="insertTextLine()"></br>
                 <form>
                     <label for="text-color">Text Color</label>
                     <input type="color" value="#000000" id="text-color" oninput="onChangeTextColor(value)">
@@ -39,6 +38,9 @@
                     <label for="fill-color">Fill Color</label>
                     <input type="color" value="#FFFFFF" id="fill-color" oninput="onChangeFillColor(value)">
                 </form>
+
+                <button class="line-text-id-up" onclick="changeSelectedLineIdx('up')">⇑</button>
+                <button class="line-text-id-down" onclick="changeSelectedLineIdx('down')">⇓</button>
 
                 <button class="font-size-up" onclick="changeFontSize('up')"><img src="images/ICONS/increase font - icon.png" alt=""></button>
                 <button class="font-size-down" onclick="changeFontSize('down')"><img src="images/ICONS/decrease font - icon.png" alt=""></button>
@@ -52,6 +54,7 @@
                     <option value="cursive">cursive</option>
                     <option value="Verdana">verdana</option>
                 </select>
+                <button class="add-line" onclick="addNewLine()">+Line</button></br>
                 <button class="delete-line" onclick="deleteLine()"><img src="images/ICONS/trash.png" alt="">Delete Line</button></br>
                 <button onclick="clearCanvas()">Clear Canvas</button></br>
                 <a href="#" onclick="downloadCanvas(this)" download="">Download</a>
