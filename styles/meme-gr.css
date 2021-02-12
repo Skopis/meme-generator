@@ -1,20 +1,23 @@
+button img {
+    width: 15px;
+}
 
-canvas{
+
+canvas {
     display: block;
-    /* margin: 0 auto; */
     border: 5px dashed rgb(106, 187, 163);
     background-color: #cfcabd;
 }
-
-.canvas-container{
+.canvas-container {
     display: flex;
+    flex-wrap: wrap;
     background-color: rgb(69, 138, 161);
     margin: 0 auto;
     margin-top: 2vw;
-    width: 800px;
+    max-width: fit-content;
     border: 1px solid rgb(107, 212, 124);
 }
 
-button img{
-    width: 15px;
+.meme-editor-menu {
+    margin: 1rem;
 }

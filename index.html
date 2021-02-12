@@ -13,6 +13,8 @@
 
 <body onload="init()">
 
+<main class="wrapper">
+    
     <!--HEADER-->
     <header class="header">
         <img src="images/logo/LOGO.png" alt="logo" class="logo-img">
@@ -27,20 +29,31 @@
         <div class="canvas-container">
             <canvas id="my-canvas" height="500" width="500" onclick="draw(event)"></canvas>
             <menu class="meme-editor-menu">
-                <input type="text" id="text-line" placeholder="Enter first line here" onkeyup="insertTextLine(0)" onclick="updateSelectedLineIdx(0)">
+                <input type="text" id="text-line" placeholder="Enter first line here" onkeyup="insertTextLine(0)" onclick="updateSelectedLineIdx(0)"></br>
                 <input type="text" id="second-text-line" placeholder="Enter second line here" onkeyup="insertTextLine(1)" onclick="updateSelectedLineIdx(1)">
                 <form>
                     <label for="text-color">Text Color</label>
-                    <input type="color" value="#7a9882" id="text-color" oninput="onChangeTextColor(value)">
+                    <input type="color" value="#000000" id="text-color" oninput="onChangeTextColor(value)">
                 </form>
                 <form>
                     <label for="fill-color">Fill Color</label>
-                    <input type="color" value="#cfcabd" id="fill-color" oninput="onChangeFillColor(value)">
+                    <input type="color" value="#FFFFFF" id="fill-color" oninput="onChangeFillColor(value)">
                 </form>
 
                 <button class="font-size-up" onclick="changeFontSize('up')"><img src="images/ICONS/increase font - icon.png" alt=""></button>
                 <button class="font-size-down" onclick="changeFontSize('down')"><img src="images/ICONS/decrease font - icon.png" alt=""></button>
-                <button onclick="clearCanvas()">Clear Canvas</button>
+                <button class="align-left" onclick="changeAlignText('right')"><img src="images/ICONS/align-to-left.png" alt=""></button>
+                <button class="align-center" onclick="changeAlignText('center')"><img src="images/ICONS/center-text-alignment.png" alt=""></button>
+                <button class="align-right" onclick="changeAlignText('left')"><img src="images/ICONS/align-to-right.png" alt=""></button></br>
+                <select onchange="changeFont(this.value)" class="font-change">
+                    <option value="Impact">impact</option>
+                    <option value="monospace">monospace</option>
+                    <option value="serif">serif</option>
+                    <option value="cursive">cursive</option>
+                    <option value="Verdana">verdana</option>
+                </select>
+                <button class="delete-line" onclick="deleteLine()"><img src="images/ICONS/trash.png" alt="">Delete Line</button></br>
+                <button onclick="clearCanvas()">Clear Canvas</button></br>
                 <a href="#" onclick="downloadCanvas(this)" download="">Download</a>
             </menu>
         </div>
@@ -54,8 +67,9 @@
         </div>
     </section>
 
+</main>
 
-    <!-- <footer class="footer">coffee rights</footer> -->
+    <footer>coffee rights</footer>
 
 
     <!--SCRIPTS-->
