@@ -242,6 +242,8 @@ function addNewLine() {
 }
 
 function downloadCanvas(elLink) {
+    renderCanvas();
+
     const data = gElCanvas.toDataURL();
     elLink.href = data;
     elLink.download = 'myCanvas';
