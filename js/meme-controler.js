@@ -74,7 +74,7 @@ function insertTextLine() {
 function onDown(ev) {
     const pos = getEvPos(ev);
     if (!isTextClicked(pos)) return;
-
+    document.getElementById('text-line').value = gMeme.lines[gMeme.selectedLineIdx].txt;
     gMeme.lines[gMeme.selectedLineIdx].isDragging = true;
     gStartPos = pos;
 
