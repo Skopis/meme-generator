@@ -1,13 +1,31 @@
-button img {
-    width: 15px;
+button img, label img {
+    width: 20px;
 }
 
+button {
+    border: none;
+    background-color: transparent;
+}
+
+label {
+    width: fit-content;
+}
+
+select, option {
+    font-size: 1.3rem;
+    width: 6rem;
+}
+
+input {
+    font-size: 1.3rem;
+}
 
 canvas {
     display: block;
     border: 5px dashed rgb(106, 187, 163);
     background-color: #cfcabd;
 }
+
 .canvas-container {
     display: flex;
     flex-wrap: wrap;
@@ -20,4 +38,13 @@ canvas {
 
 .meme-editor-menu {
     margin: 1rem;
+}
+
+#fill-color, #text-color {
+    width: 0px;
+    border: 0;
+}
+
+.btn-invisible {
+    visibility: hidden;
 }

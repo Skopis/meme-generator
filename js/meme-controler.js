@@ -17,16 +17,6 @@ var gMeme =
             fillclr: '#FFFFFF',
             fontfam: 'impact',
             txtAlign: 'center'
-        },
-        {
-            txt: '',
-            pos: { x: (gElCanvas.width / 2), y: (gElCanvas.height - 40) },
-            isDragging: false,
-            size: 40,
-            texclr: '#000000',
-            fillclr: '#FFFFFF',
-            fontfam: 'impact',
-            txtAlign: 'center'
         }
     ]
 }
@@ -78,10 +68,10 @@ function insertTextLine() {
     drawText(text, gMeme.lines[gMeme.selectedLineIdx].pos.x, gMeme.lines[gMeme.selectedLineIdx].pos.y);
     gMeme.lines[gMeme.selectedLineIdx].txt = text;
     renderCanvas();
+    drawBorder();
 }
 
 function onDown(ev) {
-
     const pos = getEvPos(ev);
     if (!isTextClicked(pos)) return;
 
@@ -91,8 +81,6 @@ function onDown(ev) {
     gMeme.lines[gMeme.selectedLineIdx].pos.x = pos.x;
     gMeme.lines[gMeme.selectedLineIdx].pos.y = pos.y;
 
-    document.body.style.cursor = 'grabbing';
-
     renderCanvas();
 }
 
@@ -100,12 +88,10 @@ function isTextClicked(clickedPos) {
     for (let i = 0; i < gMeme.lines.length; i++) {
         let currLine = gMeme.lines[i];
         let textWidth = gCtx.measureText(currLine.txt).width;
-        if (clickedPos.x >= currLine.pos.x - (2 * textWidth) &&
-            clickedPos.x <= currLine.pos.x + (2 * textWidth) &&
+        if (clickedPos.x >= currLine.pos.x - textWidth / 4 &&
+            clickedPos.x <= currLine.pos.x - textWidth / 4 + textWidth * 1.5 &&
             clickedPos.y >= currLine.pos.y - currLine.size &&
-            clickedPos.y <= currLine.pos.y + currLine.size) {
-            gCtx.strokeStyle = 'black';
-            gCtx.strokeRect(currLine.pos.x - textWidth, currLine.pos.y - currLine.size, textWidth * 2, currLine.size * 1.5);
+            clickedPos.y <= currLine.pos.y - currLine.size + currLine.size * 1.5) {
             gMeme.selectedLineIdx = i;
             return true;
         }
@@ -113,6 +99,14 @@ function isTextClicked(clickedPos) {
     return false;
 }
 
+function drawBorder() {
+    var currLine = gMeme.lines[gMeme.selectedLineIdx];
+    if (!currLine.txt) return;
+    gCtx.font = `${currLine.size}px ${currLine.fontfam}`;
+    var textWidth = gCtx.measureText(currLine.txt).width;
+    gCtx.strokeStyle = 'black';
+    gCtx.strokeRect(currLine.pos.x - textWidth / 4, currLine.pos.y - currLine.size, textWidth * 1.5, currLine.size * 1.5);
+}
 
 function onMove(ev) {
     if (gMeme.lines[gMeme.selectedLineIdx].isDragging) {
@@ -131,6 +125,8 @@ function onMove(ev) {
 function onUp() {
     gMeme.lines[gMeme.selectedLineIdx].isDragging = false;
     document.body.style.cursor = 'default';
+    renderCanvas();
+    drawBorder();
 }
 
 function getEvPos(ev) {
@@ -201,12 +197,9 @@ function drawImg() {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
-function changeSelectedLineIdx(upOrDown) {
-    if (upOrDown === 'up') gMeme.selectedLineIdx++;
-    else gMeme.selectedLineIdx--;
-}
-
 function deleteLine() {
+    if (!gMeme.lines[gMeme.selectedLineIdx].txt) return;
+
     document.getElementById('text-line').value = '';
     if (gMeme.selectedLineIdx === 0) {
         gMeme.lines.splice(0, 1, {
@@ -222,14 +215,17 @@ function deleteLine() {
     }
     else {
         gMeme.lines.splice(gMeme.selectedLineIdx, 1);
-        gMeme.selectedLineIdx--;
     }
+    gMeme.selectedLineIdx = gMeme.lines.length - 1;
     renderCanvas();
 }
 
 function addNewLine() {
+    if (!gMeme.lines[gMeme.selectedLineIdx].txt) return;
+    gMeme.selectedLineIdx = gMeme.lines.length;
+
     document.getElementById('text-line').value = '';
-    if (gMeme.lines.length >= 1) {//if it's the second line that is added
+    if (gMeme.selectedLineIdx >= 1) {//if it's the second line that is added
         gMeme.lines.push({
             txt: '',
             pos: { x: (gElCanvas.width / 2), y: (gElCanvas.height - 40) },
@@ -240,11 +236,10 @@ function addNewLine() {
             fontfam: 'impact',
             txtAlign: 'center'
         });
-        if (gMeme.lines.length >= 2) {//if it's the third line and above that's added
-            gMeme.lines[gMeme.lines.length - 1].pos = { x: (gElCanvas.width / 2), y: gElCanvas.height / 2 };
+        if (gMeme.selectedLineIdx >= 2) {//if it's the third line and above that's added
+            gMeme.lines[gMeme.selectedLineIdx].pos = { x: (gElCanvas.width / 2), y: gElCanvas.height / 2 };
         }
     }
-    gMeme.selectedLineIdx++;
 }
 
 function downloadCanvas(elLink) {
@@ -254,22 +249,45 @@ function downloadCanvas(elLink) {
 }
 
 function changeFont(fontName) {
+    if (!gMeme.lines[gMeme.selectedLineIdx].txt) return;
+
     gMeme.lines[gMeme.selectedLineIdx].fontfam = fontName;
     renderCanvas();
+    drawBorder();
 }
 
 function changeAlignText(alignDirection) {
-    gMeme.lines[gMeme.selectedLineIdx].txtAlign = alignDirection;
+
+    var currLine = gMeme.lines[gMeme.selectedLineIdx];
+    var textWidth = gCtx.measureText(currLine.txt).width;
+    if (!currLine.txt) return;
+    if (alignDirection === 'left') {
+        currLine.pos = { x: 20, y: currLine.pos.y }
+    }
+    else if (alignDirection === 'right') {
+        currLine.pos = { x: gElCanvas.width - textWidth - 20, y: currLine.pos.y }
+    }
+    else if (alignDirection === 'center') {
+        currLine.pos = { x: gElCanvas.width / 2 - textWidth / 2, y: currLine.pos.y }
+    }
+
+    currLine.txtAlign = alignDirection;
+
     renderCanvas();
+    drawBorder();
 }
 
 function onChangeFillColor(color) {
+    if (!gMeme.lines[gMeme.selectedLineIdx].txt) return;
+
     gCtx.fillStyle = color;
     gMeme.lines[gMeme.selectedLineIdx].fillclr = color;
     drawText(gMeme.lines[gMeme.selectedLineIdx].txt, gMeme.lines[gMeme.selectedLineIdx].pos.x, gMeme.lines[gMeme.selectedLineIdx].pos.y);
 
 }
 function onChangeTextColor(color) {
+    if (!gMeme.lines[gMeme.selectedLineIdx].txt) return;
+
     gCtx.strokeStyle = color;
     gMeme.lines[gMeme.selectedLineIdx].txtclr = color;
     drawText(gMeme.lines[gMeme.selectedLineIdx].txt, gMeme.lines[gMeme.selectedLineIdx].pos.x, gMeme.lines[gMeme.selectedLineIdx].pos.y);
@@ -281,7 +299,8 @@ function drawText(text, x, y, idx = -1) {
 
     gCtx.lineWidth = 2;
     gCtx.font = `${gMeme.lines[lineIdx].size}px ${gMeme.lines[lineIdx].fontfam}`;
-    gCtx.textAlign = gMeme.lines[lineIdx].txtAlign;
+
+    // if(gMeme.lines[lineIdx].txtAlign === 'center') gCtx.textAlign = gMeme.lines[lineIdx].txtAlign;
 
     gCtx.fillStyle = gMeme.lines[lineIdx].fillclr;
     gCtx.fillText(text, x, y);
@@ -294,17 +313,17 @@ function draw(ev) {
     if (!isTextClicked(pos)) return;
     const { offsetX, offsetY } = ev;
     drawText(gMeme.lines[gMeme.selectedLineIdx].txt, offsetX, offsetY)
-    gMeme.lines[gMeme.selectedLineIdx].pos.x = offsetX;
-    gMeme.lines[gMeme.selectedLineIdx].pos.y = offsetY;
 }
 
 function changeFontSize(upOrDown) {
+    if (!gMeme.lines[gMeme.selectedLineIdx].txt) return;
+
     if (upOrDown === 'up') gMeme.lines[gMeme.selectedLineIdx].size += 10;
     else gMeme.lines[gMeme.selectedLineIdx].size -= 10;
-    drawText(gMeme.lines[gMeme.selectedLineIdx].txt, gMeme.lines[gMeme.selectedLineIdx].pos.x, gMeme.lines[gMeme.selectedLineIdx].pos.y);
-    renderCanvas();
-}
 
+    renderCanvas();
+    drawBorder();
+}
 
 function _makegImgs() {
     for (let i = 1; i <= 18; i++) {
