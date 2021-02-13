@@ -1,10 +1,7 @@
-button img, label img {
-    width: 20px;
-}
+/* --------------- BASICS --------------- */
 
-button {
-    border: none;
-    background-color: transparent;
+button img, label img {
+    width: 2rem;
 }
 
 label {
@@ -21,30 +18,66 @@ input {
 }
 
 canvas {
-    display: block;
+    /* display: block; */
+    width: 500px;
+    height: 500px;
     border: 5px dashed rgb(106, 187, 163);
     background-color: #cfcabd;
 }
 
-.canvas-container {
+/* -------------------------------------- */
+
+/* --------------- ELEMENTS --------------- */
+
+.meme-editor-section {
+    margin: 1rem;
     display: flex;
+    flex-direction:row;
     flex-wrap: wrap;
-    background-color: rgb(69, 138, 161);
-    margin: 0 auto;
-    margin-top: 2vw;
-    max-width: fit-content;
-    border: 1px solid rgb(107, 212, 124);
+}
+
+.canvas-container {
+    width: fit-content;
+    height: fit-content;
 }
 
 .meme-editor-menu {
+    width: fit-content;
     margin: 1rem;
+    display: block;
+    text-align: center;
+    /* flex-direction: column; */
+    /* justify-content: center;
+    align-content: flex-start; */
+}
+.meme-editor-menu>*{
+    margin: 0.2rem;
 }
 
 #fill-color, #text-color {
     width: 0px;
     border: 0;
 }
-
+#text-line{
+max-width: 300px;
+}
 .btn-invisible {
     visibility: hidden;
+}
+.clear{
+    font-size: 16px !important;
+}
+/* ---------------------------------------- */
+
+@media screen and (max-width: 530px) {
+    html {
+        font-size: 0.8rem;
+    }
+    .canvas-container{
+        margin: 0 auto;
+    }
+    canvas {
+        width: 350px;
+        height: 350px;
+    }
 }

@@ -160,12 +160,11 @@ function initCanvas(imgId) {
     addListeners();
 
     document.querySelector('.gallery-section').style.display = 'none';
-    document.querySelector('.meme-editor-section').style.display = 'block';
+    document.querySelector('.meme-editor-section').style.display = 'flex';
+    resizeCanvas();
 
     if (imgId) {
         gMeme.selectedImgId = imgId;
-        document.querySelector('.gallery-section').style.display = 'none';
-        document.querySelector('.meme-editor-section').style.display = 'block';
 
         gCurrImage = gImgs.find(image => image.id === imgId);
 
@@ -334,4 +333,11 @@ function _makegImgs() {
         }
         gImgs.push(img);
     }
+}
+
+
+function resizeCanvas() {
+    var elContainer = document.querySelector('.canvas-container')
+    gElCanvas.width = elContainer.offsetWidth;
+    gElCanvas.height = elContainer.offsetHeight;
 }

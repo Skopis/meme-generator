@@ -1,36 +1,53 @@
 /* --------------- BASICS --------------- */
 
-* {
+*, html {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 html, body {
-    font-family: impact;
+    font-family: cursive;
     color: #4F4E4E;
     background-color: rgb(226, 176, 170);
 }
 
 button {
     cursor: pointer;
+    font-family: cursive;
+    border: none;
+    background-color: transparent;
 }
-p{
+
+p {
     font-size: 1.5rem;
     line-height: 1.5rem;
 }
+
 a {
     text-decoration: none;
 }
 
 header {
+    font-weight: bold;
     display: flex;
-    max-height: 70px;
+    min-height: 50px;
     justify-content: space-between;
     padding-left: 5px;
     padding-right: 50px;
     border: solid 2px black;
     background-color: rgb(141, 187, 110);
+}
+
+header ul {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-around;
+    align-self: center;
+}
+
+li {
+    list-style-type: none;
 }
 
 header a {
@@ -55,14 +72,23 @@ footer {
     text-align: center;
 }
 
-footer>h3,  footer>.logo-img{
+footer>h3, footer>.logo-img {
     align-self: flex-end;
     margin: 10px;
 }
 
 header img, footer img {
-    max-width: 100px;
+    max-width: 150px;
+    margin-right: 5rem;
     object-fit: contain;
+}
+
+footer img {
+    margin-right: 0;
+}
+
+footer p {
+    margin: 5px 0;
 }
 
 a img {
@@ -78,7 +104,6 @@ a img {
     display: flex;
     flex-direction: column;
 }
-
 
 .container {
     background-color: rgb(211, 149, 105);
