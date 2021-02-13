@@ -3,23 +3,7 @@
 var gElCanvas = document.getElementById('my-canvas');
 var gCtx;
 var gImgs = [];
-var gMeme =
-{
-    selectedImgId: 0,
-    selectedLineIdx: 0,
-    lines: [
-        {
-            txt: '',
-            pos: { x: (gElCanvas.width / 2), y: 40 },
-            isDragging: false,
-            size: 40,
-            texclr: '#000000',
-            fillclr: '#FFFFFF',
-            fontfam: 'impact',
-            txtAlign: 'center'
-        }
-    ]
-}
+var gMeme;
 var gWasDownFirst = false;
 
 
@@ -63,6 +47,7 @@ function addTouchListeners() {
 }
 
 function insertTextLine() {
+    if(!gMeme.lines[gMeme.selectedLineIdx]) return;
     var text;
     text = document.getElementById('text-line').value;
     drawText(text, gMeme.lines[gMeme.selectedLineIdx].pos.x, gMeme.lines[gMeme.selectedLineIdx].pos.y);
@@ -156,12 +141,32 @@ function renderCanvas() {
 
 function initCanvas(imgId) {
     gCtx = gElCanvas.getContext('2d');
-
     addListeners();
-
+    
     document.querySelector('.gallery-section').style.display = 'none';
     document.querySelector('.meme-editor-section').style.display = 'flex';
     resizeCanvas();
+
+    gCtx.strokeStyle = '#000000';
+    gCtx.fillStyle = '#FFFFFF';
+
+    gMeme =
+{
+    selectedImgId: 0,
+    selectedLineIdx: 0,
+    lines: [
+        {
+            txt: '',
+            pos: { x: (gElCanvas.width / 2), y: 40 },
+            isDragging: false,
+            size: 40,
+            texclr: '#000000',
+            fillclr: '#FFFFFF',
+            fontfam: 'impact',
+            txtAlign: 'center'
+        }
+    ]
+}
 
     if (imgId) {
         gMeme.selectedImgId = imgId;
@@ -215,12 +220,15 @@ function deleteLine() {
     else {
         gMeme.lines.splice(gMeme.selectedLineIdx, 1);
     }
-    gMeme.selectedLineIdx = gMeme.lines.length - 1;
+    gMeme.selectedLineIdx = gMeme.lines.length-1;
     renderCanvas();
+    drawBorder();
 }
 
 function addNewLine() {
     if (!gMeme.lines[gMeme.selectedLineIdx].txt) return;
+    renderCanvas();
+    document.getElementById('text-line').focus();
     gMeme.selectedLineIdx = gMeme.lines.length;
 
     document.getElementById('text-line').value = '';

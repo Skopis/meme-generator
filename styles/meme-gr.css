@@ -21,7 +21,8 @@ canvas {
     /* display: block; */
     width: 500px;
     height: 500px;
-    border: 5px dashed rgb(106, 187, 163);
+    border: rgb(0, 0, 0, 0.7) groove 3px;
+    border-style: ridge;
     background-color: #cfcabd;
 }
 
@@ -32,9 +33,12 @@ canvas {
 .meme-editor-section {
     margin: 1rem;
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 2vh 0;
+    background-color: rgb(243, 100, 4, 0.7);
+    border: rgb(0, 0, 0, 0.8) groove 3px;
 }
 
 .canvas-container {
@@ -43,39 +47,80 @@ canvas {
 }
 
 .meme-editor-menu {
-    width: fit-content;
-    margin: 1rem;
-    display: block;
-    text-align: center;
-    /* flex-direction: column; */
-    /* justify-content: center;
-    align-content: flex-start; */
+    display: grid;
+    grid-template-columns: repeat(3, minmax(50px, 80px));
+    grid-template-rows: repeat(7, 1fr);
+    grid-gap: 0.4rem;
+    justify-items: center;
+    align-self: center;
 }
-.meme-editor-menu>*{
-    margin: 0.2rem;
+
+.meme-editor-menu>* {
+    opacity: 0.7;
+    align-self: center;
+}
+.meme-editor-menu>*:hover:not(:first-child){
+    opacity: 1;
+    background-color: rgba(231, 138, 76, 0.7);
+    cursor: pointer;
+}
+
+#text-line {
+    grid-row: 1;
+    grid-column: 1/ span 3;
+}
+
+#font-size-down {
+    grid-row: 3;
+    grid-column: 3;
+}
+
+#font-change {
+    grid-row: 3;
+    grid-column: 2;
+}
+
+#download {
+    font-size: 1.3rem;
+    grid-row: 7;
+    grid-column: 2;
+    border: 2px solid black;
+    padding: 2px;
+}
+
+#clear {
+    font-size: 1.3rem;
+    border: 2px solid black;
+    padding: 2px;
 }
 
 #fill-color, #text-color {
     width: 0px;
     border: 0;
 }
-#text-line{
-max-width: 200px;
+
+#text-line {
+    max-width: 200px;
 }
+
 .btn-invisible {
     visibility: hidden;
 }
-.clear{
-    font-size: 16px !important;
-}
-/* ---------------------------------------- */
 
-@media screen and (max-width: 530px) {
+/* ---------------------------------------- */
+@media screen and (max-width: 808px) {
+    html {
+        font-size: 0.9rem;
+    }
+    canvas {
+        width: 400px;
+        height: 400px;
+    }
+}
+
+@media screen and (max-width: 550px) {
     html {
         font-size: 0.8rem;
-    }
-    .canvas-container{
-        margin: 0 auto;
     }
     canvas {
         width: 350px;

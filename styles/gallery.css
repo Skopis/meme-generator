@@ -9,7 +9,7 @@
 html, body {
     font-family: cursive;
     color: #4F4E4E;
-    background-color: rgb(226, 176, 170);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 button {
@@ -26,6 +26,7 @@ p {
 
 a {
     text-decoration: none;
+    color: black
 }
 
 header {
@@ -35,8 +36,8 @@ header {
     justify-content: space-between;
     padding-left: 5px;
     padding-right: 50px;
-    border: solid 2px black;
-    background-color: rgb(141, 187, 110);
+    border-bottom: solid 3px  rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 header ul {
@@ -48,25 +49,27 @@ header ul {
 
 li {
     list-style-type: none;
+    font-weight:bolder;
 }
 
 header a {
     font-size: 1.5rem;
-    color: chocolate;
+    color:  rgb(230, 169, 126);
 }
 
 header a:hover {
-    color: rgb(20, 100, 220);
+    color: rgb(243, 100, 4);
 }
 
 .wrapper {
-    min-height: calc(100vh - 50px);
+    min-height: 100vh;
 }
 
 footer {
     margin-top: 2rem;
-    background-color: rgb(209, 154, 114);
-    color: bisque;
+    border-top: solid 3px  rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: rgb(230, 169, 126);
     display: flex;
     justify-content: space-between;
     text-align: center;
@@ -90,7 +93,10 @@ footer img {
 footer p {
     margin: 5px 0;
 }
-
+footer a{
+    width: fit-content;
+    margin: 5px auto;
+}
 a img {
     width: 2rem;
 }
@@ -106,18 +112,20 @@ a img {
 }
 
 .container {
-    background-color: rgb(211, 149, 105);
-    width: 90vw;
-    height: auto;
+    background-color: rgba(80, 135, 199, 0.5);
+    max-width: 90vw;
     margin: 2rem auto;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
 }
 
 .gallery {
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, 200px);
     grid-gap: 1.5rem;
-    justify-items: center;
+    align-self: center;
+    justify-self: center;
+    padding: 1.5rem;
 }
 
 .gallery-item {
