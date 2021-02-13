@@ -34,6 +34,7 @@ canvas {
     display: flex;
     flex-direction:row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .canvas-container {
@@ -59,7 +60,7 @@ canvas {
     border: 0;
 }
 #text-line{
-max-width: 300px;
+max-width: 200px;
 }
 .btn-invisible {
     visibility: hidden;
