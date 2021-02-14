@@ -22,6 +22,7 @@ canvas {
     height: 500px;
     border: rgb(0, 0, 0, 0.3) dashed 3px;
     background-color: #cfcabd;
+    margin: 0 auto;
 }
 
 /* -------------------------------------- */
@@ -30,7 +31,7 @@ canvas {
 
 .meme-editor-section {
     width: 90vw;
-    margin: 5vh auto;
+    margin: 3vh auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -40,16 +41,13 @@ canvas {
 }
 
 .canvas-container {
-    width: fit-content;
-    height: fit-content;
+    height: 500px;
 }
 
 .meme-editor-menu {
-    
     display: grid;
     grid-template-columns: repeat(3, minmax(50px, 80px));
     grid-template-rows: repeat(6, minmax(50px, 70px));
-    grid-gap: 0.4rem;
     justify-items: center;
     align-self: center;
 }
@@ -60,7 +58,7 @@ canvas {
     font-size: 1.2rem;
 }
 
-.meme-editor-menu>*:hover{
+.meme-editor-menu>*:hover {
     opacity: 1;
     transition: .3s;
     cursor: pointer;
@@ -71,34 +69,8 @@ canvas {
     grid-column: 1/ span 3;
 }
 
-#font-size-down {
-    grid-row: 3;
-    grid-column: 3;
-}
-
 #font-change {
-    grid-row: 3;
-    grid-column: 2;
-}
-
-#save-meme {
-    grid-row: 6;
-    grid-column: 3;
-}
-
-#download {
-    grid-row: 6;
-    grid-column: 2;
-}
-
-#clear {
-    grid-row: 5;
-    grid-column: 2;
-}
-
-#publish {
-    grid-row: 7;
-    grid-column: 2;
+    width: 80px
 }
 
 #fill-color, #text-color {
@@ -115,6 +87,7 @@ canvas {
 }
 
 /* ---------------------------------------- */
+
 @media screen and (min-width: 1600px) {
     html {
         font-size: 1.1rem;
@@ -123,27 +96,41 @@ canvas {
         width: 600px;
         height: 600px;
     }
+    .canvas-container {
+        height: 600px;
+    }
 }
 
 @media screen and (max-width: 840px) {
     html {
         font-size: 0.9rem;
     }
+    .meme-editor-menu {
+        grid-template-columns: repeat(5, minmax(48px, 80px));
+    }
+}
+
+@media screen and (max-width: 725px) {
+    html {
+        font-size: 0.85rem;
+    }
     canvas {
-        width: 400px;
-        height: 400px;
+        width: 450px;
+        height: 450px;
+    }
+    .canvas-container {
+        height: 450px;
     }
 }
 
 @media screen and (max-width: 550px) {
-    html {
-        font-size: 0.8rem;
-    }
-    canvas {
-        width: 350px;
-        height: 350px;
-    }
-    footer{
+    footer {
         flex-direction: column;
+    }
+    .meme-editor-menu>*{
+        font-size: 1.4rem;
+    }
+    .meme-editor-menu img{
+        width: 48px;
     }
 }

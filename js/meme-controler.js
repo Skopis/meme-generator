@@ -31,16 +31,17 @@ function renderGallery() {
     };
     document.querySelector('.gallery').innerHTML = srtHTML;
 }
+
 function goToSavedMemesGallery() {
     document.querySelector('.meme-editor-section').style.display = 'none';
     document.querySelector('.gallery-section').style.display = 'none';
     document.querySelector('.saved-memes-gallery-section').style.display = 'block';
-
     renderSavedMemesGallery()
 }
+
 function renderSavedMemesGallery() {
     gSavedMemes = loadFromStorage(KEY);
-    if(!gSavedMemes) return;
+    if (!gSavedMemes) return;
     var srtHTML = '';
     for (let i = 0; i < gSavedMemes.length; i++) {
         var currSavedMeme = gSavedMemes[i];
@@ -84,10 +85,8 @@ function insertTextLine() {
 function onDown(ev) {
     const pos = getEvPos(ev);
     if (!isTextClicked(pos)) return;
-
     document.getElementById('text-line').value = gMeme.lines[gMeme.selectedLineIdx].txt;
     document.getElementById('font-change').value = gMeme.lines[gMeme.selectedLineIdx].fontfam;
-
     gMeme.lines[gMeme.selectedLineIdx].isDragging = true;
     gStartPos = pos;
 }
@@ -121,10 +120,8 @@ function onMove(ev) {
         const pos = getEvPos(ev);
         const dx = pos.x - gStartPos.x;
         const dy = pos.y - gStartPos.y;
-
         gMeme.lines[gMeme.selectedLineIdx].pos.x += dx;
         gMeme.lines[gMeme.selectedLineIdx].pos.y += dy;
-
         gStartPos = pos;
         renderCanvas();
     }
@@ -157,7 +154,6 @@ function renderCanvas() {
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
     gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height);
     drawImg();
-
     for (var i = 0; i < gMeme.lines.length; i++) {
         drawText(gMeme.lines[i].txt, gMeme.lines[i].pos.x, gMeme.lines[i].pos.y, i);
     }
@@ -194,23 +190,21 @@ function initCanvas(imgId, savedMemeIdx) {
     }
 
     if (imgId) {
-        gMeme.selectedImgId = imgId;
-        gCurrImage = gImgs.find(image => image.id === imgId);
-
         document.getElementById('font-change').value = 'impact';
         document.getElementById('text-line').value = '';
 
+        gMeme.selectedImgId = imgId;
+        gCurrImage = gImgs.find(image => image.id === imgId);
         const img = new Image()
         img.src = gCurrImage.url;
         img.onload = () => {
             gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
         }
     }
-    if(savedMemeIdx>=0) {
+    if (savedMemeIdx >= 0) {
         gMeme = gSavedMemes[savedMemeIdx];
         gCurrImage = gImgs.find(image => image.id === gMeme.selectedImgId);
     }
-
     resizeCanvas();
     renderCanvas();
 }
@@ -237,7 +231,6 @@ function drawImg() {
 
 function deleteLine() {
     if (!gMeme.lines[gMeme.selectedLineIdx].txt) return;
-
     document.getElementById('text-line').value = '';
     if (gMeme.selectedLineIdx === 0) {
         gMeme.lines.splice(0, 1, {
@@ -285,7 +278,6 @@ function addNewLine() {
 
 function downloadCanvas(elLink) {
     renderCanvas();
-
     const data = gElCanvas.toDataURL();
     elLink.href = data;
     elLink.download = 'myMeme';
@@ -293,14 +285,12 @@ function downloadCanvas(elLink) {
 
 function changeFont(fontName) {
     if (!gMeme.lines[gMeme.selectedLineIdx].txt) return;
-
     gMeme.lines[gMeme.selectedLineIdx].fontfam = fontName;
     renderCanvas();
     drawBorder();
 }
 
 function changeAlignText(alignDirection) {
-
     var currLine = gMeme.lines[gMeme.selectedLineIdx];
     var textWidth = gCtx.measureText(currLine.txt).width;
     if (!currLine.txt) return;
@@ -313,9 +303,7 @@ function changeAlignText(alignDirection) {
     else if (alignDirection === 'center') {
         currLine.pos = { x: gElCanvas.width / 2 - textWidth / 2, y: currLine.pos.y }
     }
-
     currLine.txtAlign = alignDirection;
-
     renderCanvas();
     drawBorder();
 }
@@ -368,7 +356,6 @@ function saveMeme() {
     _saveToStorage()
 }
 
-// The next 2 functions handle IMAGE UPLOADING to img tag from file system: 
 function onImgInput(ev) {
     initCanvas();
     loadImageFromInput(ev, renderImg);
@@ -390,12 +377,10 @@ function renderImg(img) {
     initCanvas();
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
 }
-// on submit call to this function
 function uploadImg(elForm, ev) {
     ev.preventDefault();
     document.getElementById('imgData').value = gElCanvas.toDataURL("image/jpeg");
 
-    // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
         document.querySelector('.share-container').innerHTML = `
@@ -420,7 +405,6 @@ function doUploadImg(elForm, onSuccess) {
         })
 }
 
-
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container');
     gElCanvas.width = elContainer.offsetWidth
@@ -437,7 +421,6 @@ function _makegImgs() {
         gImgs.push(img);
     }
 }
-
 
 function _saveToStorage() {
     saveToStorage(KEY, gSavedMemes)

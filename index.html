@@ -21,7 +21,7 @@
                 <img src="images/logo/LOGO.png" alt="logo" class="logo-img">
                 <ul>
                     <li><a href="#" class="galery-link" onclick="goToGallery()">Gallery</a></li>
-                    <li><a href="#" class="memes-link" onclick="goToSavedMemesGallery()">Saved Memes</a></li>
+                    <li><a href="#" class="memes-link" onclick="goToSavedMemesGallery()">Memes</a></li>
                     <li><a href="#about" class="about-link">About</a></li>
                 </ul>
             </header>
@@ -48,23 +48,23 @@
                         src="images/ICONS/increase font - icon.png" alt=""></button>
                 <button id="font-size-down" onclick="changeFontSize('down')"><img
                         src="images/ICONS/decrease font - icon.png" alt=""></button>
+                        <select onchange="changeFont(this.value)" id="font-change">
+                            <option value="impact" style="font-family: impact;">impact</option>
+                            <option value="monospace" style="font-family: monospace;">monospace</option>
+                            <option value="serif" style="font-family: serif;">serif</option>
+                            <option value="cursive" style="font-family: cursive;">cursive</option>
+                            <option value="verdana" style="font-family: verdana;">verdana</option>
+                        </select>
                 <button class="align-left" onclick="changeAlignText('left')"><img src="images/ICONS/align-to-left.png"
                         alt=""></button>
                 <button class="align-center" onclick="changeAlignText('center')"><img
                         src="images/ICONS/center-text-alignment.png" alt=""></button>
                 <button class="align-right" onclick="changeAlignText('right')"><img
                         src="images/ICONS/align-to-right.png" alt=""></button>
-                <select onchange="changeFont(this.value)" id="font-change">
-                    <option value="impact" style="font-family: impact;">impact</option>
-                    <option value="monospace" style="font-family: monospace;">monospace</option>
-                    <option value="serif" style="font-family: serif;">serif</option>
-                    <option value="cursive" style="font-family: cursive;">cursive</option>
-                    <option value="verdana" style="font-family: verdana;">verdana</option>
-                </select>
                 <button class="delete-line" onclick="deleteLine()"><img src="images/ICONS/trash.png" alt=""></button>
-                <button id="save-meme" onclick="saveMeme()">Save</button>
+                <button id="save-meme" onclick="saveMeme()"><img src="images/ICONS/save.png" alt=""></button>
                 <button id="clear" onclick="clearCanvas()">Clear</button>
-                <a href="#" onclick="downloadCanvas(this)" download="" id="download">Download</a>
+                <a href="#" onclick="downloadCanvas(this)" download="" id="download"><img src="images/ICONS/download.png" alt=""></a>
                 <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
                     <input name="img" id="imgData" type="hidden" />
                     <button id="publish" type="submit">Publish</button>
