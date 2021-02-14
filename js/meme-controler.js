@@ -62,7 +62,6 @@ function onDown(ev) {
 
     document.getElementById('text-line').value = gMeme.lines[gMeme.selectedLineIdx].txt;
     document.getElementById('font-change').value = gMeme.lines[gMeme.selectedLineIdx].fontfam;
-    console.log('gMeme.lines[gMeme.selectedLineIdx].fontfam', gMeme.lines[gMeme.selectedLineIdx].fontfam)
 
     gMeme.lines[gMeme.selectedLineIdx].isDragging = true;
     gStartPos = pos;
@@ -94,7 +93,6 @@ function drawBorder() {
 
 function onMove(ev) {
     if (gMeme.lines[gMeme.selectedLineIdx].isDragging) {
-        console.log('hi')
         const pos = getEvPos(ev);
         const dx = pos.x - gStartPos.x;
         const dy = pos.y - gStartPos.y;
@@ -110,8 +108,6 @@ function onMove(ev) {
 function onUp() {
     gMeme.lines[gMeme.selectedLineIdx].isDragging = false;
     document.body.style.cursor = 'default';
-    console.log('gMeme.lines[gMeme.selectedLineIdx].pos.x', gMeme.lines[gMeme.selectedLineIdx].pos.x)
-    console.log('gMeme.lines[gMeme.selectedLineIdx].pos.y', gMeme.lines[gMeme.selectedLineIdx].pos.y)
     drawBorder();
 }
 
@@ -132,7 +128,7 @@ function getEvPos(ev) {
 }
 
 function renderCanvas() {
-    clearCanvas();
+    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
     gCtx.fillRect(0, 0, gElCanvas.width, gElCanvas.height);
     drawImg();
 
@@ -147,44 +143,39 @@ function initCanvas(imgId) {
 
     document.querySelector('.gallery-section').style.display = 'none';
     document.querySelector('.meme-editor-section').style.display = 'flex';
-    resizeCanvas();
 
     gCtx.strokeStyle = '#000000';
     gCtx.fillStyle = '#FFFFFF';
 
-    gMeme =
-    {
-        selectedImgId: 0,
-        selectedLineIdx: 0,
-        lines: [
-            {
-                txt: '',
-                pos: { x: (gElCanvas.width / 2), y: 40 },
-                isDragging: false,
-                size: 40,
-                txtclr: '#000000',
-                fillclr: '#FFFFFF',
-                fontfam: 'impact',
-                txtAlign: 'center'
-            }
-        ]
-    }
-
     if (imgId) {
+        gMeme =
+        {
+            selectedImgId: 0,
+            selectedLineIdx: 0,
+            lines: [
+                {
+                    txt: '',
+                    pos: { x: (gElCanvas.width / 2), y: 40 },
+                    isDragging: false,
+                    size: 40,
+                    txtclr: '#000000',
+                    fillclr: '#FFFFFF',
+                    fontfam: 'impact',
+                    txtAlign: 'center'
+                }
+            ]
+        }
         gMeme.selectedImgId = imgId;
-
         gCurrImage = gImgs.find(image => image.id === imgId);
+
+        document.getElementById('font-change').value = 'impact';
+        document.getElementById('text-line').value = '';
 
         const img = new Image()
         img.src = gCurrImage.url;
         img.onload = () => {
             gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
         }
-
-        document.getElementById('text-line').value = '';
-        gMeme.lines.forEach((line) => {
-            line.txt = '';
-        });
     }
 }
 
@@ -194,7 +185,9 @@ function goToGallery() {
 }
 
 function clearCanvas() {
-    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
+    document.getElementById('font-change').value = 'impact';
+    document.getElementById('text-line').value = '';
 }
 
 function drawImg() {
@@ -339,11 +332,4 @@ function _makegImgs() {
         }
         gImgs.push(img);
     }
-}
-
-
-function resizeCanvas() {
-    var elContainer = document.querySelector('.canvas-container')
-    gElCanvas.width = elContainer.offsetWidth;
-    gElCanvas.height = elContainer.offsetHeight;
 }
