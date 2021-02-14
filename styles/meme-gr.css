@@ -31,7 +31,8 @@ canvas {
 /* --------------- ELEMENTS --------------- */
 
 .meme-editor-section {
-    margin: 1rem;
+    width: 90vw;
+    margin: 1rem auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

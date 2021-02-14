@@ -16,15 +16,16 @@
     <main class="wrapper">
 
         <!--HEADER-->
-        <header class="header">
-            <img src="images/logo/LOGO.png" alt="logo" class="logo-img">
-            <ul>
-                <li><a href="#" class="galery-link" onclick="goToGallery()">Gallery</a></li>
-                <li><a href="#" class="memes-link" onclick="goToSavedMemesGallery()">Saved Memes</a></li>
-                <li><a href="#about" class="about-link">About</a></li>
-            </ul>
-        </header>
-
+        <div class="header-container">
+            <header class="header">
+                <img src="images/logo/LOGO.png" alt="logo" class="logo-img">
+                <ul>
+                    <li><a href="#" class="galery-link" onclick="goToGallery()">Gallery</a></li>
+                    <li><a href="#" class="memes-link" onclick="goToSavedMemesGallery()">Saved Memes</a></li>
+                    <li><a href="#about" class="about-link">About</a></li>
+                </ul>
+            </header>
+        </div>
 
         <!--MEME EDITOR SECTION-->
         <div class="meme-editor-section">
@@ -76,12 +77,10 @@
 
         <!--GALLERY SECTION-->
         <div class="gallery-section">
-
-            <div class="inputs">
+            <div class="gallery-input-container">
                 <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
             </div>
-
-            <div class="container">
+            <div class="gallery-container">
                 <div class="gallery"></div>
             </div>
         </div>
@@ -95,21 +94,22 @@
 
     </main>
 
-    <footer>
-        <img src="images/logo/LOGO.png" alt="logo" class="logo-img">
+    <div class="footer-container">
+        <footer>
+            <img src="images/logo/LOGO.png" alt="logo" class="logo-img">
 
-        <about id="about">
-            <img class="my-pic" src="images/me.jpg" alt="">
-            <p>Lian Skopis</p>
-            <p>Full Stack Developer To Be</p>
-            <a href="https://www.linkedin.com/in/lian-skopis-057313135/" target="_blank">
-                <img src="images/ICONS/linkedin.png" alt="" srcset="">
-            </a>
-        </about>
+            <about id="about">
+                <img class="my-pic" src="images/me.jpg" alt="">
+                <p>Lian Skopis</p>
+                <p>Full Stack Developer To Be</p>
+                <a href="https://www.linkedin.com/in/lian-skopis-057313135/" target="_blank">
+                    <img src="images/ICONS/linkedin.png" alt="" srcset="">
+                </a>
+            </about>
 
-        <h3>® coffee rights 2021</h3>
-    </footer>
-
+            <h3>® coffee rights 2021</h3>
+        </footer>
+    </div>
 
 
     <!--SCRIPTS-->

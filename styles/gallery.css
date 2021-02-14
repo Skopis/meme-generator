@@ -28,33 +28,37 @@ a {
     text-decoration: none;
     color: black
 }
-
+.header-container{
+    width: 100%;
+    min-height: 3rem;
+    border-bottom: solid 3px rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
+}
 header {
+    margin: 0 auto;
+    min-height: 3rem;
+    max-width: 90vw;
     font-weight: bold;
     display: flex;
-    min-height: 50px;
     justify-content: space-between;
-    padding-left: 5px;
-    padding-right: 50px;
-    border-bottom: solid 3px  rgba(0, 0, 0, 0.8);
-    background-color: rgba(0, 0, 0, 0.7);
+    align-content: center;
 }
 
 header ul {
     display: flex;
     flex-grow: 1;
-    justify-content: space-around;
-    align-self: center;
+    justify-content: space-between;
 }
 
 li {
     list-style-type: none;
-    font-weight:bolder;
+    font-weight: bolder;
+    align-self:center ;
 }
 
 header a {
     font-size: 1.5rem;
-    color:  rgb(230, 169, 126);
+    color: rgb(230, 169, 126);
 }
 
 header a:hover {
@@ -64,25 +68,29 @@ header a:hover {
 .wrapper {
     min-height: 100vh;
 }
-
-footer {
-    margin-top: 2rem;
-    border-top: solid 3px  rgba(0, 0, 0, 0.8);
+.footer-container{
+    width: 100%;
+    border-top: solid 3px rgba(0, 0, 0, 0.8);
     background-color: rgba(0, 0, 0, 0.7);
+}
+footer {
+    max-width: 90vw;
+    margin: 0 auto;
+    padding: 1rem 0;
     color: rgb(230, 169, 126);
     display: flex;
     justify-content: space-between;
     text-align: center;
+    flex-wrap: wrap;
 }
 
 footer>h3, footer>.logo-img {
     align-self: flex-end;
-    margin: 10px;
 }
 
 header img, footer img {
     max-width: 150px;
-    margin-right: 5rem;
+    margin-right: 10rem;
     object-fit: contain;
 }
 
@@ -93,12 +101,9 @@ footer img {
 footer p {
     margin: 5px 0;
 }
-footer a{
-    width: fit-content;
-    margin: 5px auto;
-}
+
 a img {
-    width: 2rem;
+    width: 48px;
 }
 
 /* -------------------------------------- */
@@ -106,16 +111,16 @@ a img {
 /* --------------- ELEMENTS --------------- */
 
 #about {
-    margin: 10px 0;
     display: flex;
     flex-direction: column;
 }
 
-.container {
+.gallery-container {
     background-color: rgba(80, 135, 199, 0.5);
     max-width: 90vw;
     margin: 2rem auto;
-    border-radius: 0.5rem;
+    margin-top: 0;
+    
 }
 
 .gallery {
@@ -151,8 +156,8 @@ a img {
     background-color: rgba(80, 135, 199, 0.5);
     max-width: 90vw;
     margin: 2rem auto;
-    border-radius: 0.5rem;
 }
+
 .saved-memes-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -162,5 +167,23 @@ a img {
     padding: 1.5rem;
 }
 
+.gallery-input-container{
+    color:rgb(243, 100, 4,  0.8);
+    max-width: 90vw;
+    margin: 0 auto;
+    margin-top: 2rem;
+}
+.btn {
+    background-color:  rgba(80, 135, 199, 0.5);
+    font-size: 1.1rem;
+    font-family: cursive;
+    user-select: none;
+    white-space: nowrap;
+    text-decoration: none;
+}
+.file-input {
+    max-width: 250px;
+    padding: 5px;
+}
 
 /* ---------------------------------------- */
