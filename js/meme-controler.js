@@ -34,6 +34,10 @@ function renderGallery() {
 function addListeners() {
     addMouseListeners();
     addTouchListeners();
+    window.addEventListener('resize', () => {
+        resizeCanvas()
+        renderCanvas()
+    })
 }
 function addMouseListeners() {
     gElCanvas.addEventListener('mousemove', onMove);
@@ -57,6 +61,7 @@ function insertTextLine() {
 }
 
 function onDown(ev) {
+    console.log(ev);
     const pos = getEvPos(ev);
     if (!isTextClicked(pos)) return;
 
@@ -70,12 +75,14 @@ function onDown(ev) {
 function isTextClicked(clickedPos) {
     for (let i = 0; i < gMeme.lines.length; i++) {
         let currLine = gMeme.lines[i];
+        console.log('currLine' , currLine )
         let textWidth = gCtx.measureText(currLine.txt).width;
         if (clickedPos.x >= currLine.pos.x - textWidth / 4 &&
             clickedPos.x <= currLine.pos.x - textWidth / 4 + textWidth * 1.5 &&
             clickedPos.y >= currLine.pos.y - currLine.size &&
             clickedPos.y <= currLine.pos.y - currLine.size + currLine.size * 1.5) {
             gMeme.selectedLineIdx = i;
+            console.log('i', i);
             return true;
         }
     }
@@ -108,6 +115,7 @@ function onMove(ev) {
 function onUp() {
     gMeme.lines[gMeme.selectedLineIdx].isDragging = false;
     document.body.style.cursor = 'default';
+    renderCanvas();
     drawBorder();
 }
 
@@ -140,6 +148,7 @@ function renderCanvas() {
 function initCanvas(imgId) {
     gCtx = gElCanvas.getContext('2d');
     addListeners();
+    
 
     document.querySelector('.gallery-section').style.display = 'none';
     document.querySelector('.meme-editor-section').style.display = 'flex';
@@ -177,6 +186,9 @@ function initCanvas(imgId) {
             gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
         }
     }
+
+    resizeCanvas();
+    renderCanvas();
 }
 
 function goToGallery() {
@@ -321,6 +333,14 @@ function changeFontSize(upOrDown) {
 
     renderCanvas();
     drawBorder();
+}
+
+
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container');
+    // Note: changing the canvas dimension this way clears the canvas
+    gElCanvas.width = elContainer.offsetWidth
+    gElCanvas.height = elContainer.offsetHeight
 }
 
 function _makegImgs() {
