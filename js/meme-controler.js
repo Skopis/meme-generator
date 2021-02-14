@@ -225,7 +225,7 @@ function clearCanvas() {
         console.log('currSavedMemeIdx', currSavedMemeIdx);
         gSavedMemes.splice(currSavedMemeIdx, 1);
         _saveToStorage();
-        renderSavedMemesGallery;
+        document.querySelector('.saved-memes-gallery-section').style.display = 'none';
     }
 }
 
@@ -358,7 +358,6 @@ function changeFontSize(upOrDown) {
 }
 
 function saveMeme() {
-    // renderCanvas();
     gMeme.selectedImgDataUrl = gElCanvas.toDataURL();
     gSavedMemes.push(gMeme);
     _saveToStorage()
