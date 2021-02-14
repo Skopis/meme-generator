@@ -62,11 +62,6 @@ function onDown(ev) {
     document.getElementById('text-line').value = gMeme.lines[gMeme.selectedLineIdx].txt;
     gMeme.lines[gMeme.selectedLineIdx].isDragging = true;
     gStartPos = pos;
-
-    gMeme.lines[gMeme.selectedLineIdx].pos.x = pos.x;
-    gMeme.lines[gMeme.selectedLineIdx].pos.y = pos.y;
-
-    renderCanvas();
 }
 
 function isTextClicked(clickedPos) {
@@ -95,6 +90,7 @@ function drawBorder() {
 
 function onMove(ev) {
     if (gMeme.lines[gMeme.selectedLineIdx].isDragging) {
+        console.log('hi')
         const pos = getEvPos(ev);
         const dx = pos.x - gStartPos.x;
         const dy = pos.y - gStartPos.y;
@@ -110,7 +106,8 @@ function onMove(ev) {
 function onUp() {
     gMeme.lines[gMeme.selectedLineIdx].isDragging = false;
     document.body.style.cursor = 'default';
-    renderCanvas();
+    console.log('gMeme.lines[gMeme.selectedLineIdx].pos.x', gMeme.lines[gMeme.selectedLineIdx].pos.x)
+    console.log('gMeme.lines[gMeme.selectedLineIdx].pos.y', gMeme.lines[gMeme.selectedLineIdx].pos.y)
     drawBorder();
 }
 
@@ -317,13 +314,6 @@ function drawText(text, x, y, idx = -1) {
     gCtx.fillText(text, x, y);
     gCtx.strokeStyle = gMeme.lines[lineIdx].txtclr;
     gCtx.strokeText(text, x, y);
-}
-
-function draw(ev) {
-    const pos = getEvPos(ev);
-    if (!isTextClicked(pos)) return;
-    const { offsetX, offsetY } = ev;
-    drawText(gMeme.lines[gMeme.selectedLineIdx].txt, offsetX, offsetY)
 }
 
 function changeFontSize(upOrDown) {
