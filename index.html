@@ -20,7 +20,7 @@
             <img src="images/logo/LOGO.png" alt="logo" class="logo-img">
             <ul>
                 <li><a href="#" class="galery-link" onclick="goToGallery()">Gallery</a></li>
-                <li><a href="#" class="memes-link" onclick="initCanvas()">Memes</a></li>
+                <li><a href="#" class="memes-link" onclick="goToSavedMemesGallery()">Saved Memes</a></li>
                 <li><a href="#about" class="about-link">About</a></li>
             </ul>
         </header>
@@ -62,16 +62,34 @@
                     <option value="verdana" style="font-family: verdana;">verdana</option>
                 </select>
                 <button class="delete-line" onclick="deleteLine()"><img src="images/ICONS/trash.png" alt=""></button>
+                <button class="save-meme" onclick="saveMeme()">Save</button>
                 <button id="clear" onclick="clearCanvas()">Clear</button>
                 <a href="#" onclick="downloadCanvas(this)" download="" id="download">Download</a>
+                <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                    <input name="img" id="imgData" type="hidden" />
+                    <button class="btn" type="submit">Publish</button>
+                    <div class="share-container"></div>
+                </form>
             </div>
         </div>
 
 
         <!--GALLERY SECTION-->
         <div class="gallery-section">
+
+            <div class="inputs">
+                <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
+            </div>
+
             <div class="container">
                 <div class="gallery"></div>
+            </div>
+        </div>
+
+        <!--SAVED MEMES SECTION-->
+        <div class="saved-memes-gallery-section">
+            <div class="saved-memes-container">
+                <div class="saved-memes-gallery"></div>
             </div>
         </div>
 
@@ -95,7 +113,7 @@
 
 
     <!--SCRIPTS-->
-    <!-- <script src="js/meme-service.js"></script> -->
+    <script src="js/storage-service.js"></script>
     <script src="js/meme-controler.js"></script>
 
 </body>

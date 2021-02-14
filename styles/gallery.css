@@ -147,4 +147,20 @@ a img {
     max-width: 200px;
 }
 
+.saved-memes-container {
+    background-color: rgba(80, 135, 199, 0.5);
+    max-width: 90vw;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+}
+.saved-memes-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 1.5rem;
+    align-self: center;
+    justify-self: center;
+    padding: 1.5rem;
+}
+
+
 /* ---------------------------------------- */
