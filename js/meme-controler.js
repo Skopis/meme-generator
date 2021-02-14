@@ -33,6 +33,8 @@ function renderGallery() {
 }
 
 function goToSavedMemesGallery() {
+    gSavedMemes = loadFromStorage(KEY);
+    if (!gSavedMemes || gSavedMemes.length === 0) return;
     document.querySelector('.meme-editor-section').style.display = 'none';
     document.querySelector('.gallery-section').style.display = 'none';
     document.querySelector('.saved-memes-gallery-section').style.display = 'block';
@@ -40,8 +42,6 @@ function goToSavedMemesGallery() {
 }
 
 function renderSavedMemesGallery() {
-    gSavedMemes = loadFromStorage(KEY);
-    if (!gSavedMemes) return;
     var srtHTML = '';
     for (let i = 0; i < gSavedMemes.length; i++) {
         var currSavedMeme = gSavedMemes[i];
@@ -162,11 +162,10 @@ function renderCanvas() {
 function initCanvas(imgId, savedMemeIdx) {
     gCtx = gElCanvas.getContext('2d');
     addListeners();
-
     document.querySelector('.gallery-section').style.display = 'none';
     document.querySelector('.saved-memes-gallery-section').style.display = 'none';
     document.querySelector('.meme-editor-section').style.display = 'flex';
-
+    document.getElementById('text-line').focus();
     gCtx.strokeStyle = '#000000';
     gCtx.fillStyle = '#FFFFFF';
 
@@ -220,6 +219,14 @@ function clearCanvas() {
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
     document.getElementById('font-change').value = 'impact';
     document.getElementById('text-line').value = '';
+
+    if (document.querySelector('.saved-memes-gallery-section').style.display = 'block') {
+        for (let i = 0; i < gSavedMemes.length; i++) if (gSavedMemes[i] === gMeme) var currSavedMemeIdx = i;
+        console.log('currSavedMemeIdx', currSavedMemeIdx);
+        gSavedMemes.splice(currSavedMemeIdx, 1);
+        _saveToStorage();
+        renderSavedMemesGallery;
+    }
 }
 
 function drawImg() {
@@ -351,6 +358,7 @@ function changeFontSize(upOrDown) {
 }
 
 function saveMeme() {
+    // renderCanvas();
     gMeme.selectedImgDataUrl = gElCanvas.toDataURL();
     gSavedMemes.push(gMeme);
     _saveToStorage()

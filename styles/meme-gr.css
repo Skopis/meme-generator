@@ -58,10 +58,14 @@ canvas {
     font-size: 1.2rem;
 }
 
-.meme-editor-menu>*:hover {
+.meme-editor-menu>*:hover:not(:first-child) {
     opacity: 1;
     transition: .3s;
     cursor: pointer;
+}
+.meme-editor-menu>*:hover {
+    opacity: 1;
+    transition: .3s;
 }
 
 #text-line {
