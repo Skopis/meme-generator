@@ -59,7 +59,11 @@ function insertTextLine() {
 function onDown(ev) {
     const pos = getEvPos(ev);
     if (!isTextClicked(pos)) return;
+
     document.getElementById('text-line').value = gMeme.lines[gMeme.selectedLineIdx].txt;
+    document.getElementById('font-change').value = gMeme.lines[gMeme.selectedLineIdx].fontfam;
+    console.log('gMeme.lines[gMeme.selectedLineIdx].fontfam', gMeme.lines[gMeme.selectedLineIdx].fontfam)
+
     gMeme.lines[gMeme.selectedLineIdx].isDragging = true;
     gStartPos = pos;
 }
