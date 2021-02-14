@@ -18,11 +18,9 @@ input {
 }
 
 canvas {
-    /* display: block; */
     width: 500px;
     height: 500px;
-    border: rgb(0, 0, 0, 0.7) groove 3px;
-    border-style: ridge;
+    border: rgb(0, 0, 0, 0.3) dashed 3px;
     background-color: #cfcabd;
 }
 
@@ -32,14 +30,13 @@ canvas {
 
 .meme-editor-section {
     width: 90vw;
-    margin: 1rem auto;
+    margin: 5vh auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     padding: 2vh 0;
-    background-color: rgb(243, 100, 4, 0.7);
-    border: rgb(0, 0, 0, 0.8) groove 3px;
+    background-color: rgba(80, 135, 199, 0.5);
 }
 
 .canvas-container {
@@ -48,9 +45,10 @@ canvas {
 }
 
 .meme-editor-menu {
+    
     display: grid;
     grid-template-columns: repeat(3, minmax(50px, 80px));
-    grid-template-rows: repeat(7, 1fr);
+    grid-template-rows: repeat(6, minmax(50px, 70px));
     grid-gap: 0.4rem;
     justify-items: center;
     align-self: center;
@@ -59,10 +57,12 @@ canvas {
 .meme-editor-menu>* {
     opacity: 0.7;
     align-self: center;
+    font-size: 1.2rem;
 }
-.meme-editor-menu>*:hover:not(:first-child){
+
+.meme-editor-menu>*:hover{
     opacity: 1;
-    background-color: rgba(231, 138, 76, 0.7);
+    transition: .3s;
     cursor: pointer;
 }
 
@@ -81,18 +81,24 @@ canvas {
     grid-column: 2;
 }
 
+#save-meme {
+    grid-row: 6;
+    grid-column: 3;
+}
+
 #download {
-    font-size: 1.3rem;
-    grid-row: 7;
+    grid-row: 6;
     grid-column: 2;
-    border: 2px solid black;
-    padding: 2px;
 }
 
 #clear {
-    font-size: 1.3rem;
-    border: 2px solid black;
-    padding: 2px;
+    grid-row: 5;
+    grid-column: 2;
+}
+
+#publish {
+    grid-row: 7;
+    grid-column: 2;
 }
 
 #fill-color, #text-color {
@@ -109,7 +115,17 @@ canvas {
 }
 
 /* ---------------------------------------- */
-@media screen and (max-width: 808px) {
+@media screen and (min-width: 1600px) {
+    html {
+        font-size: 1.1rem;
+    }
+    canvas {
+        width: 600px;
+        height: 600px;
+    }
+}
+
+@media screen and (max-width: 840px) {
     html {
         font-size: 0.9rem;
     }
@@ -126,5 +142,8 @@ canvas {
     canvas {
         width: 350px;
         height: 350px;
+    }
+    footer{
+        flex-direction: column;
     }
 }

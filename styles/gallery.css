@@ -15,6 +15,7 @@ html, body {
 button {
     cursor: pointer;
     font-family: cursive;
+    font-size: inherit;
     border: none;
     background-color: transparent;
 }
@@ -31,7 +32,6 @@ a {
 .header-container{
     width: 100%;
     min-height: 3rem;
-    border-bottom: solid 3px rgba(0, 0, 0, 0.8);
     background-color: rgba(0, 0, 0, 0.7);
 }
 header {
@@ -70,7 +70,6 @@ header a:hover {
 }
 .footer-container{
     width: 100%;
-    border-top: solid 3px rgba(0, 0, 0, 0.8);
     background-color: rgba(0, 0, 0, 0.7);
 }
 footer {
@@ -168,13 +167,11 @@ a img {
 }
 
 .gallery-input-container{
-    color:rgb(243, 100, 4,  0.8);
+    background-color:  rgba(80, 135, 199, 0.5);
+    color:rgb(243, 100, 4,  0.7);
     max-width: 90vw;
     margin: 0 auto;
     margin-top: 2rem;
-}
-.btn {
-    background-color:  rgba(80, 135, 199, 0.5);
     font-size: 1.1rem;
     font-family: cursive;
     user-select: none;
@@ -182,7 +179,6 @@ a img {
     text-decoration: none;
 }
 .file-input {
-    max-width: 250px;
     padding: 5px;
 }
 
